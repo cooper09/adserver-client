@@ -12,19 +12,20 @@
 
 	</head>
 
-	<body> 
+	<body> TEST
 			<script language="javascript" type="text/javascript">
 		
 				var viddy;
 						
 				$.ajax({
 				        type: 'GET',
-				        url: 'http://localhost:8081/test',
-				        //url: 'http://adserver-env-poly.elasticbeanstalk.com/test',
+				        //url: 'http://localhost:8081/test?callback=jsonpCallback',
+				        url: 'http://adserver-env-poly.elasticbeanstalk.com/test?callback=jsonpCallback',
 				        crossDomain: true,
 				        async: false,
 				        jsonpCallback: 'jsonpCallback',
-				        dataType: 'json',
+				        dataType: 'jsonp',
+				        jsonp: false,
 				        contentType:'application/json',
 				        success: function(data) {        
 
@@ -36,6 +37,16 @@
 
 				        }
 				    });
+
+
+		 function jsonpCallback(json) {
+		        if (!json.Error) {
+		           console.log('SUCCESS!!!!');
+		        }
+		        else {
+		            alert(json.Message);
+		        }
+		    }//end Jsonp Callback
 
 			</script>
 			<noscript>
