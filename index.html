@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//WC3//DTD XHTML 1.0 Strict//EN"
+
+	http://www.w3.org/TR/xhmtl1/DTS/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+	<head>
+
+		<title>Javascript Tutorial</title>
+
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	</head>
+
+	<body> 
+			<script language="javascript" type="text/javascript">
+		
+				var viddy;
+						
+				$.ajax({
+				        type: 'GET',
+				        url: 'http://localhost:8081/test',
+				        //url: 'http://adserver-env-poly.elasticbeanstalk.com/test',
+				        crossDomain: true,
+				        async: false,
+				        jsonpCallback: 'jsonpCallback',
+				        dataType: 'json',
+				        contentType:'application/json',
+				        success: function(data) {        
+
+					         viddy = data.url;
+
+					         console.log("Our Viddy: " + viddy );
+
+					         document.write('<h3>Local Ad of the Day - REMOTE</h3><video width="320" height="240" autoplay><source src="'+ viddy +'" type="video/mp4"></video>');
+
+				        }
+				    });
+
+			</script>
+			<noscript>
+				<h3>Sorry...you need javascript</h3>
+			</noscript>
+	</body>
+</html>
+
