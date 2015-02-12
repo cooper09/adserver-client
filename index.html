@@ -12,6 +12,16 @@
 
 		  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+		  <style>
+		  	#viddy {
+		  		display: none;
+		  		cursor: pointer;
+		  	}
+
+		  	.wally {
+		  		display: none;
+		  	}
+		  </style>
 	</head>
 
 	<body> 
@@ -29,13 +39,23 @@
 				        dataType: 'jsonp',
 				        jsonp: false,
 				        contentType:'application/json',
-				        success: function(data) {        
+				        success: function(data) {  
+
+				        	console.log("received new data: " , data );      
 
 					         viddy = data.url;
+					         adid = data.adId;
+					         adUnit = data.adUnit;
 
 					         console.log("Our Viddy: " + viddy );
 
-					         document.write('<h3>Local Ad of the Day - REMOTE</h3><video width="320" height="240" autoplay><source src="'+ viddy +'" type="video/mp4"></video>');
+					         document.write('<div id="viddy" class="wally">TEST<h3>Local Ad of the Day - REMOTE</h3><video class="wally" width="320" height="240" autoplay><source src="'+ viddy +'" type="video/mp4"></video></div>');
+
+					        document.writeln('<br/>AdId: ' + adid + '<br/>');
+
+					        document.writeln('Ad Unit: ' + adUnit + '<br/>');
+
+					        document.writeln('Location: ' + viddy + '<br/>');
 
 				        }
 				    });
@@ -43,17 +63,27 @@
 
 		 function jsonpCallback(json) {
 		        if (!json.Error) {
-		           console.log('SUCCESS!!!!');
+		           console.log('Json Data from endpoint: ' , json );
 		        }
 		        else {
 		            alert(json.Message);
 		        }
 		    }//end Jsonp Callback
 
+
+		    // onClick I want something exciting to happen
+
+		    $( "#viddy" ).click(function() {
+  				alert( "Handler for .click() called." );
+				});
+
 			</script>
 			<noscript>
 				<h3>Sorry...you need javascript</h3>
 			</noscript>
+
+	<div id="viasdddy">Video Goes here... </div>
+
 	</body>
 </html>
 
