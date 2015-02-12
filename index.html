@@ -14,20 +14,35 @@
 
 		  <style>
 		  	#viddy {
-		  		display: none;
-		  		cursor: pointer;
+		  		/* background: pink; */
 		  	}
-
-		  	.wally {
-		  		display: none;
+		  	#wally {
+		  		cursor: pointer;
 		  	}
 		  </style>
 	</head>
 
 	<body> 
 			<script language="javascript" type="text/javascript">
-		
-				var viddy;
+			</script>
+			<noscript>
+				<h3>Sorry...you need javascript</h3>
+			</noscript>
+
+	<div id="viddy">
+		<h3>Local Ad of the Day - REMOTE</h3>
+
+		<video id="wally" width="320" height="240" autoplay><source id="thesource" src="" type="video/mp4"></video><br/>
+		ID: <span class="id">Time to Chime</span><br/>
+		AdId: <span class="adId">adid</span><br/>
+		AdUnit: <span class="adUnit">adUnit</span><br/>
+		Location: <span class="location">viddy</span>
+	</div>
+
+</body>
+<script>
+ $(document).ready(function () {
+ 	var viddy;
 						
 				$.ajax({
 				        type: 'GET',
@@ -42,20 +57,21 @@
 				        success: function(data) {  
 
 				        	console.log("received new data: " , data );      
-
+	
 					         viddy = data.url;
 					         adid = data.adId;
 					         adUnit = data.adUnit;
 
 					         console.log("Our Viddy: " + viddy );
 
-					         document.write('<div id="viddy" class="wally">TEST<h3>Local Ad of the Day - REMOTE</h3><video class="wally" width="320" height="240" autoplay><source src="'+ viddy +'" type="video/mp4"></video></div>');
+						    $('#thesource').attr('src',viddy );
 
-					        document.writeln('<br/>AdId: ' + adid + '<br/>');
+						    var player = document.getElementById('wally'); 
+						        player.load(); 
 
-					        document.writeln('Ad Unit: ' + adUnit + '<br/>');
-
-					        document.writeln('Location: ' + viddy + '<br/>');
+						$(".adId").text(adid);
+						$(".adUnit").text(adUnit);
+						$(".location").text(viddy);
 
 				        }
 				    });
@@ -73,17 +89,11 @@
 
 		    // onClick I want something exciting to happen
 
-		    $( "#viddy" ).click(function() {
+		    $( "#wally" ).click(function() {
   				alert( "Handler for .click() called." );
 				});
 
-			</script>
-			<noscript>
-				<h3>Sorry...you need javascript</h3>
-			</noscript>
-
-	<div id="viasdddy">Video Goes here... </div>
-
-	</body>
+ });
+</script>
 </html>
 
