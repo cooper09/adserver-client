@@ -26,9 +26,10 @@
 
 		<video id="wally" width="320" height="240" autoplay><source id="thesource" src="" type="video/mp4"></video><br/>
 		ID: <span class="id">Time to Chime</span><br/>
+		Channel: <span class="adUnit">channel</span><br/>
 		AdId: <span class="adId">adid</span><br/>
-		AdUnit: <span class="adUnit">adUnit</span><br/>
-		Location: <span class="location">viddy</span>
+		Location: <span class="location">viddy</span><br/>
+		Type: <span class="type">type</span>
 	</div>
 
 </body>
@@ -39,7 +40,8 @@
 				$.ajax({
 				        type: 'GET',
 				        //url: 'http://localhost:8081/test?callback=jsonpCallback',
-				        url: 'http://adserver-env-poly.elasticbeanstalk.com/test?callback=jsonpCallback',
+				        //url: 'http://adserver-env-poly.elasticbeanstalk.com/test?callback=jsonpCallback',
+				        url: 'http://localhost:8081/?callback=jsonpCallback',
 				        crossDomain: true,
 				        async: false,
 				        jsonpCallback: 'jsonpCallback',
@@ -48,23 +50,30 @@
 				        contentType:'application/json',
 				        success: function(data) {  
 
-				        	console.log("received new data: " , data );      
+				        	console.log("received new data: " , data ); 
+
+				        	id = data[1]._id
+				        	channels = data[0];
+				        	ads = data[1];     
 	
-					         viddy = data.url;
-					         adid = data.adId;
-					         adUnit = data.adUnit;
+					         viddy = ads.location;
+					         adid = ads.adId;
+					         channel = channels.channels[1];
+					         type = ads.type;
 
 					         console.log("Our Viddy: " + viddy );
 
 						    $('#thesource').attr('src',viddy );
 
 						    var player = document.getElementById('wally'); 
-						        player.load(); 
 
+						    player.load(); 
+
+						$(".id").text(id);
 						$(".adId").text(adid);
-						$(".adUnit").text(adUnit);
+						$(".channel").text(channel);
 						$(".location").text(viddy);
-
+						$(".type").text(type);
 				        }
 				    });
 
