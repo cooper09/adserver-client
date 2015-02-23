@@ -26,42 +26,55 @@
 
 		<video id="wally" width="320" height="240" autoplay><source id="thesource" src="" type="video/mp4"></video><br/>
 		ID: <span class="id">Time to Chime</span><br/>
-		Channel: <span class="adUnit">channel</span><br/>
+		Channel: <span class="channel">channel</span><br/>
 		AdId: <span class="adId">adid</span><br/>
 		Location: <span class="location">viddy</span><br/>
-		Type: <span class="type">type</span>
+		Type: <span class="type">type</span><br/>
+		Clicks: <span class="clicks">clicks</span>
 	</div>
 
 </body>
 <script>
  $(document).ready(function () {
  	var viddy;
-						
+	var id;
+	var adId;
+	var channel;
+	var type;
+	var clicks;
+
 				$.ajax({
 				        type: 'GET',
 				        //url: 'http://localhost:8081/test?callback=jsonpCallback',
-				        //url: 'http://adserver-env-poly.elasticbeanstalk.com/test?callback=jsonpCallback',
-				        url: 'http://localhost:8081/?callback=jsonpCallback',
+				        url: 'http://adserver-env-poly.elasticbeanstalk.com/?callback=jsonpCallback',
+				        //url: 'http://localhost:8081/?callback=jsonpCallback',
 				        crossDomain: true,
 				        async: false,
 				        jsonpCallback: 'jsonpCallback',
-				        dataType: 'jsonp',
-				        jsonp: false,
+				        dataType: 'json',
 				        contentType:'application/json',
+				        error: function(data){
+				        	console.log("error: " , data);
+				        },
 				        success: function(data) {  
 
 				        	console.log("received new data: " , data ); 
 
-				        	id = data[1]._id
+				        	var r = rand(1,3);
+				        	console.log("random #:" + r );
+				        	console.log("random # viddy:" + data[r].adId );
+
+				        	id = data[r]._id
 				        	channels = data[0];
 				        	ads = data[1];     
 	
-					         viddy = ads.location;
-					         adid = ads.adId;
+					         viddy = data[r].location; //ads.location;
+					         adid = data[r].adId;
 					         channel = channels.channels[1];
 					         type = ads.type;
+					         clicks = data[r].views;
 
-					         console.log("Our Viddy: " + viddy );
+					         console.log("Our Viddy: " + channel );
 
 						    $('#thesource').attr('src',viddy );
 
@@ -74,6 +87,7 @@
 						$(".channel").text(channel);
 						$(".location").text(viddy);
 						$(".type").text(type);
+						$(".clicks").text(clicks);
 				        }
 				    });
 
@@ -83,18 +97,48 @@
 		           console.log('Json Data from endpoint: ' , json );
 		        }
 		        else {
-		            alert(json.Message);
+		            alert("Json callback: " + json.Message);
 		        }
 		    }//end Jsonp Callback
 
 
+		function rand(start, end)
+		{
+			return Math.floor(Math.random() * end) + start;
+		}
+
 		    // onClick I want something exciting to happen
 
-		    $( "#wally" ).click(function() {
-  				alert( "Handler for .click() called." );
-				});
+		$( "#wally" ).click(function() {
 
- });
+  				var updateObj = { _id : id, adId: adId, location: viddy, type: 'video', views: clicks + 1 }
+
+  					alert( "Current clicks: " + updateObj.views  );
+
+  					//var ready = JSON.parse(updateObj);
+
+  				/*	$.ajax({
+					    url : "http://localhost:8081/load",
+					    type: "POST",
+					    data : updateObj,
+					    dataType: 'json',
+					    contentType: "application/json",
+					    jsonpCallback: 'jsonpCallback',
+            			contentType: false,
+            			processData: false,
+					    success: function(data, textStatus, jqXHR)
+					    {
+					        alert("POST succeded: " + textStatus + "jqXHR: " + jqXHR );
+					    },
+					    error: function (jqXHR, textStatus, errorThrown)
+					    {
+					 		 alert("POST failed: " + errorThrown + " textStatus: " + textStatus );
+					    }
+					});  */
+
+				});//end of click
+
+ 	});// end document read 
 </script>
 <noscript>
 	<h3>Sorry...you need javascript</h3>
