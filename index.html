@@ -46,8 +46,8 @@
 				$.ajax({
 				        type: 'GET',
 				        //url: 'http://localhost:8081/test?callback=jsonpCallback',
-				        url: 'http://adserver-env-poly.elasticbeanstalk.com/?callback=jsonpCallback',
-				        //url: 'http://localhost:8081/?callback=jsonpCallback',
+				        //url: 'http://adserver-env-poly.elasticbeanstalk.com/?callback=jsonpCallback',
+				        url: 'http://localhost:8081/?callback=jsonpCallback',
 				        crossDomain: true,
 				        async: false,
 				        jsonpCallback: 'jsonpCallback',
@@ -111,13 +111,13 @@
 
 		$( "#wally" ).click(function() {
 
-  				var updateObj = { _id : id, adId: adId, location: viddy, type: 'video', views: clicks + 1 }
+  				var updateObj = { _id : id, adId: adId, location: viddy, type: 'video', views: 1 }
 
   					alert( "Current clicks: " + updateObj.views  );
 
   					//var ready = JSON.parse(updateObj);
 
-  				/*	$.ajax({
+  					$.ajax({
 					    url : "http://localhost:8081/load",
 					    type: "POST",
 					    data : updateObj,
@@ -128,13 +128,13 @@
             			processData: false,
 					    success: function(data, textStatus, jqXHR)
 					    {
-					        alert("POST succeded: " + textStatus + "jqXHR: " + jqXHR );
+					        alert("POST succeded: " , textStatus + "jqXHR: " ,  jqXHR );
 					    },
 					    error: function (jqXHR, textStatus, errorThrown)
 					    {
 					 		 alert("POST failed: " + errorThrown + " textStatus: " + textStatus );
 					    }
-					});  */
+					});  
 
 				});//end of click
 
