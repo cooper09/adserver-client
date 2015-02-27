@@ -126,12 +126,13 @@
 
   					$.ajax({
 					    url : "http://localhost:8081/load",
+					     //url: 'http://adserver-env-poly.elasticbeanstalk.com/?callback=jsonpCallback',
 					    type: "POST",
 					    data : updateObj,
 					    dataType: 'json',
 					    success: function(data, textStatus, jqXHR)
 					    {
-					        console.log("POST succeded: " , textStatus + "jqXHR: " ,  jqXHR );
+					        console.log("POST succeded: " , textStatus + " jqXHR: " ,  jqXHR );
 					    },
 					    error: function (jqXHR, textStatus, errorThrown)
 					    {
