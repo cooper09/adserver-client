@@ -110,10 +110,18 @@
 		    // onClick I want something exciting to happen
 
 		$( "#wally" ).click(function() {
+					
+					adId = 2;
 
-  				var updateObj = { _id : id, adId: adId, location: viddy, type: 'video', views: 1 }
+  				var updateObj = { 
+  									_id : id, 
+  									adId: adId, 
+  									location: viddy, 
+  									type: 'video', 
+  									views: 100
+  								}
 
-  					alert( "Current clicks: " + updateObj.views  );
+  					alert( "Update AdId:  " + updateObj.adId  );
 
   					//var ready = JSON.parse(updateObj);
 
@@ -122,10 +130,6 @@
 					    type: "POST",
 					    data : updateObj,
 					    dataType: 'json',
-					    contentType: "application/json",
-					    jsonpCallback: 'jsonpCallback',
-            			contentType: false,
-            			processData: false,
 					    success: function(data, textStatus, jqXHR)
 					    {
 					        alert("POST succeded: " , textStatus + "jqXHR: " ,  jqXHR );
