@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+	<div id="clickme"> Click here... I like it!</div>
+<body>
+</body>
+</html>
+<script>
+	$(document).ready (function () {
+		alert("time to boogie:" + document.location.hostname);
+
+		sendMail();
+
+		function sendMail() {
+			var link = "mailto:cooperatkmba@gmail.com"
+             + "?cc=mustkre8h@gmail.com"
+             + "&subject=" + escape("This is my subject")
+             + "&body=" + escape(document.getElementById('clickme').value)
+		    ;
+
+		    window.location.href = link;
+		}//end sendMail
+
+	});//end document ready
+
+
+</script>
