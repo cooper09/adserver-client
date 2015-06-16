@@ -4,7 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Untitled Document</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-</head>
+<script src="http://localhost:8888/sendmail/sendmail.js"></script>
+<style>
+	#clickme {
+		cursor: pointer;
+	}
+</style>
+</head>TEST
 	<div id="clickme"> Click here... I like it!</div>
 <body>
 </body>
@@ -13,7 +19,7 @@
 	$(document).ready (function () {
 		alert("time to boogie:" + document.location.hostname);
 
-		sendMail();
+		//sendMail();
 
 		function sendMail() {
 			var link = "mailto:cooperatkmba@gmail.com"
@@ -25,6 +31,9 @@
 		    window.location.href = link;
 		}//end sendMail
 
+		$('#clickme').click( function () {
+			alert("Click away!!!");
+		});
 	});//end document ready
 
 

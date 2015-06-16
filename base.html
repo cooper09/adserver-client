@@ -1,0 +1,37 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+ <div id="viddy">
+    <video id="wally" width="320" height="240" autoplay><source id="thesource" src="" type="video/mp4"></video><br/>
+  </div>
+
+
+<script type="text/JavaScript"> 
+  $(document).ready(function(){ 
+    // ad data variables, add and subtract as needed... 
+   
+   $.getJSON( 'http://nodejs-campaigner.rhcloud.com/campaign', {
+    format: "json"
+  })
+    .done(function( data ) {
+      console.log("campaign data: ",  data );
+      var r = rand( 0, data.length);
+  
+      viddy = data[r].video; 
+               
+      $('#thesource').attr('src',viddy );
+
+      var player = document.getElementById('wally'); 
+
+      player.load(); 
+        
+    })
+     .error(function (data) {
+      console.log("DANGER Will Robinson!!!", data.statusText );
+     });
+
+     function rand(start, end)
+        {
+          return Math.floor(Math.random() * end) + start;
+        }
+  }); //end document ready
+  </script> 

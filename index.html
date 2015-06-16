@@ -159,7 +159,21 @@
 
 				});//end of click
 
- 	});// end document read 
+		$('#wally').click( function () {
+			sendmail = require('http://localhost:8888/sendmail/sendmail')();
+
+			sendmail({
+			    from: 'test@yourdomain.com',
+			    to: 'cooperatkmba@gmail.com',
+			    subject: 'test sendmail',
+			    content: 'These are the times to try mens souls... ',
+			  }, function(err, reply) {
+			    console.log("Warning, Will Robinson!!! " + err && err.stack);
+			    console.dir(reply);
+			});
+		});
+
+ 	});// end document ready
 </script>
 <noscript>
 	<h3>Sorry...you need javascript</h3>
